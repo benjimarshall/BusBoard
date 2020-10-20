@@ -33,7 +33,7 @@ namespace BusBoard.ConsoleApp
                         Console.WriteLine(prediction.PredictionSummary);
                     }
                 }
-                catch (ArgumentException e)
+                catch (TflStopNotFoundException e)
                 {
                     Console.WriteLine(e.Message);
                 }

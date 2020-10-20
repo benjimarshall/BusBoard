@@ -9,6 +9,11 @@ using RestSharp.Authenticators;
 
 namespace BusBoard.ConsoleApp
 {
+    class TflStopNotFoundException : Exception
+    {
+        public TflStopNotFoundException(string message) : base(message) { }
+    }
+
     class TflApi
     {
         private const string BaseUrl = "https://api.tfl.gov.uk/";
@@ -30,7 +35,7 @@ namespace BusBoard.ConsoleApp
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                throw new ArgumentException("Stop was not found");
+                throw new TflStopNotFoundException("Stop was not found");
             }
 
             return response.Data;
