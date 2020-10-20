@@ -38,13 +38,10 @@ namespace BusBoard.ConsoleApp
 
         public static string SummarisePredictions(IEnumerable<Prediction> predictions, int count = 5)
         {
-            var result = new StringBuilder();
-            foreach (var prediction in predictions.Take(count))
-            {
-                result.Append(prediction.PredictionSummary);
-            }
-
-            return result.ToString();
+            return string.Join(
+                "\n",
+                predictions.Take(count).Select(prediction => prediction.PredictionSummary)
+            );
         }
     }
 }
