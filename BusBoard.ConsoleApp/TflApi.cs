@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using RestSharp;
@@ -28,6 +29,10 @@ namespace BusBoard.ConsoleApp
             {
                 throw new TflStopNotFoundException("Stop was not found");
             }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new TflStopNotFoundException("Location requested is too far from London");
+            }
 
             return response.Data;
         }
@@ -42,6 +47,32 @@ namespace BusBoard.ConsoleApp
         public IEnumerable<Prediction> GetSortedArrivals(string stopId)
         {
             return GetArrivals(stopId).OrderBy(prediction => prediction.timeToStation);
+        }
+
+        public IEnumerable<StopPoint> GetStopPointsAtLocation(double lat, double lon)
+        {
+            var request = new RestRequest($"StopPoint?" +
+                                          $"radius=500" +
+                                          $"&stopTypes=NaptanBusCoachStation,NaptanPublicBusCoachTram" +
+                                          $"&lat={lat}&lon={lon}"
+                                          );
+
+            // Stops roughly within 500m of given point. Due to caching done by TFL, the distances they use are only
+            // accurate to ~100m due to heavy rounding of lat and lon parameters
+            var stopPoints = Execute<StopPointsWrapper>(request).stopPoints;
+
+            // Recalculate distances and update stopPoints to have greater precision
+            stopPoints.ForEach(stopPoint =>
+                stopPoint.distance = LatLonDistance(lat, lon, stopPoint.lat, stopPoint.lon)
+            );
+
+            // Sort by updated distances
+            return stopPoints.OrderBy(stopPoint => stopPoint.distance);
+        }
+
+        private double LatLonDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            return Math.Sqrt(Math.Pow(lat1 - lat2, 2) + Math.Pow(lon1 - lon2, 2));
         }
     }
 }

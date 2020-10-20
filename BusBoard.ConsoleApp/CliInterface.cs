@@ -36,6 +36,27 @@ namespace BusBoard.ConsoleApp
             }
         }
 
+        private static string GetPredictionsForLatLon(TflApi tflApi, double lat, double lon, int count = 2)
+        {
+            var stopPoints = tflApi.GetStopPointsAtLocation(lat, lon);
+
+            if (!stopPoints.Any())
+            {
+                return "No bus stops near this location.";
+            }
+
+            var result = new StringBuilder();
+            foreach (var stopPoint in stopPoints.Take(2))
+            {
+                var arrivals = tflApi.GetSortedArrivals(stopPoint.id);
+                result.Append($"Bus stop: {stopPoint.commonName}")
+                      .Append(SummarisePredictions(arrivals))
+                      .Append("\n");
+            }
+
+            return result.ToString();
+        }
+
         private static string SummarisePredictions(IEnumerable<Prediction> predictions)
         {
             return string.Join(
