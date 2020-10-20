@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BusBoard.ConsoleApp
 {
@@ -28,16 +27,24 @@ namespace BusBoard.ConsoleApp
                 {
                     var predictions = tflApi.GetSortedArrivals(input);
 
-                    foreach (var prediction in predictions.Take(3))
-                    {
-                        Console.WriteLine(prediction.PredictionSummary);
-                    }
+                    Console.WriteLine(SummarisePredictions(predictions));
                 }
                 catch (TflStopNotFoundException e)
                 {
                     Console.WriteLine(e.Message);
                 }
             }
+        }
+
+        public static string SummarisePredictions(IEnumerable<Prediction> predictions, int count = 5)
+        {
+            var result = new StringBuilder();
+            foreach (var prediction in predictions.Take(count))
+            {
+                result.Append(prediction.PredictionSummary);
+            }
+
+            return result.ToString();
         }
     }
 }

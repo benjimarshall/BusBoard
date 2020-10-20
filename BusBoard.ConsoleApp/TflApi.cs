@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using RestSharp;
-using RestSharp.Authenticators;
 
 namespace BusBoard.ConsoleApp
 {
-    class TflStopNotFoundException : Exception
-    {
-        public TflStopNotFoundException(string message) : base(message) { }
-    }
-
     class TflApi
     {
         private const string BaseUrl = "https://api.tfl.gov.uk/";
@@ -50,9 +41,7 @@ namespace BusBoard.ConsoleApp
 
         public IEnumerable<Prediction> GetSortedArrivals(string stopId)
         {
-            var arrivals = GetArrivals(stopId);
-
-            return arrivals.OrderBy(prediction => prediction.timeToStation).ToList();
+            return GetArrivals(stopId).OrderBy(prediction => prediction.timeToStation);
         }
     }
 }
