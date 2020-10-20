@@ -36,7 +36,7 @@ namespace BusBoard.ConsoleApp
             }
         }
 
-        public static string SummarisePredictions(IEnumerable<Prediction> predictions, int count = 5)
+        private static string SummarisePredictions(IEnumerable<Prediction> predictions, int count = 5)
         {
             return string.Join(
                 "\n",
