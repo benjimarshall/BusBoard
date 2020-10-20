@@ -13,7 +13,7 @@ namespace BusBoard.ConsoleApp
     {
         private const string BaseUrl = "https://api.tfl.gov.uk/";
 
-        readonly IRestClient client;
+        private readonly IRestClient client;
 
         public TflApi()
         {
@@ -26,9 +26,7 @@ namespace BusBoard.ConsoleApp
 
             if (response.ErrorException != null)
             {
-                const string message = "Error retrieving response.  Check inner details for more info.";
-                var tflException = new Exception(message, response.ErrorException);
-                throw tflException;
+                throw response.ErrorException;
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -38,22 +36,18 @@ namespace BusBoard.ConsoleApp
             return response.Data;
         }
 
-        public List<Prediction> GetArrivals(string stopId)
+        public IEnumerable<Prediction> GetArrivals(string stopId)
         {
             var request = new RestRequest($"StopPoint/{stopId}/Arrivals");
 
             return Execute<List<Prediction>>(request);
         }
 
-        public List<Prediction> GetSortedArrivals(string stopId)
+        public IEnumerable<Prediction> GetSortedArrivals(string stopId)
         {
             var arrivals = GetArrivals(stopId);
 
-            arrivals.Sort((prediction1, prediction2) =>
-                prediction1.timeToStation.CompareTo(prediction2.timeToStation)
-            );
-
-            return arrivals;
+            return arrivals.OrderBy(prediction => prediction.timeToStation).ToList();
         }
     }
 }

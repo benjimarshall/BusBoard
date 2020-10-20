@@ -23,22 +23,19 @@ namespace BusBoard.ConsoleApp
                 {
                     break;
                 }
-                else
-                {
-                    try
-                    {
-                        var predictions = tflApi.GetSortedArrivals(input);
 
-                        var iterations = Math.Max(predictions.Count, 5);
-                        for (var i = 0; i < iterations; i++)
-                        {
-                            Console.WriteLine(predictions[i].PredictionSummary);
-                        }
-                    }
-                    catch (ArgumentException e)
+                try
+                {
+                    var predictions = tflApi.GetSortedArrivals(input);
+
+                    foreach (var prediction in predictions.Take(3))
                     {
-                        Console.WriteLine(e.Message);
+                        Console.WriteLine(prediction.PredictionSummary);
                     }
+                }
+                catch (ArgumentException e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
         }

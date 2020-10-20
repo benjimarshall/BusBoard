@@ -14,7 +14,7 @@ namespace BusBoard.ConsoleApp
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var tflApi = new TflApi();
-            
+
             CliInterface.RunUserCommandLoop(tflApi);
         }
     }
