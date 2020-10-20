@@ -7,11 +7,11 @@ namespace BusBoard.ConsoleApp
 {
     class CliInterface
     {
-        public static void RunUserCommandLoop(TflApi tflApi)
+        public static void RunUserCommandLoop(TflApi tflApi, PostcodeApi postcodeApi)
         {
             while (true)
             {
-                Console.WriteLine("\n\"[Bus stop code]\" to list arrivals at that stop");
+                Console.WriteLine("\n\"[Postcode]\" to list arrivals the two closest stops");
                 Console.WriteLine("\"Quit\" to quit");
 
                 Console.WriteLine("Please type an option: ");
@@ -25,15 +25,20 @@ namespace BusBoard.ConsoleApp
 
                 try
                 {
-                    var predictions = tflApi.GetSortedArrivals(input);
-
-                    Console.WriteLine(SummarisePredictions(predictions));
+                    Console.WriteLine(GetPredictionsForPostcode(tflApi, postcodeApi, input));
                 }
-                catch (TflStopNotFoundException e)
+                catch (Exception ex) when (ex is TflStopNotFoundException || ex is PostcodeNotFoundException)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private static string GetPredictionsForPostcode(TflApi tflApi, PostcodeApi postcodeApi, string postcode)
+        {
+            var postcodeData = postcodeApi.GetPostcodeData(postcode);
+
+            return GetPredictionsForLatLon(tflApi, postcodeData.latitude, postcodeData.longitude);
         }
 
         private static string GetPredictionsForLatLon(TflApi tflApi, double lat, double lon, int count = 2)
@@ -49,9 +54,9 @@ namespace BusBoard.ConsoleApp
             foreach (var stopPoint in stopPoints.Take(2))
             {
                 var arrivals = tflApi.GetSortedArrivals(stopPoint.id);
-                result.Append($"Bus stop: {stopPoint.commonName}")
+                result.Append($"Bus stop: {stopPoint.commonName}\n")
                       .Append(SummarisePredictions(arrivals))
-                      .Append("\n");
+                      .Append("\n\n");
             }
 
             return result.ToString();
