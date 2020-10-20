@@ -24,5 +24,10 @@ namespace BusBoard.ConsoleApp
         public string timeToLive { get; set; }
         public string modeName { get; set; }
         public PredictionTiming timing { get; set; }
+
+        public int minutesToStation => timeToStation / 60;
+
+        public string PredictionSummary =>
+            $"{lineName} bus to {destinationName} will arrive in {minutesToStation} minutes";
     }
 }
