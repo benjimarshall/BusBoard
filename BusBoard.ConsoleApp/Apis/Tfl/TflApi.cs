@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using RestSharp;
@@ -63,16 +62,11 @@ namespace BusBoard.ConsoleApp
 
             // Recalculate distances and update stopPoints to have greater precision
             stopPoints.ForEach(stopPoint =>
-                stopPoint.distance = LatLonDistance(lat, lon, stopPoint.lat, stopPoint.lon)
+                stopPoint.distance = stopPoint.LatLonDistance(lat, lon)
             );
 
             // Sort by updated distances
             return stopPoints.OrderBy(stopPoint => stopPoint.distance);
-        }
-
-        private double LatLonDistance(double lat1, double lon1, double lat2, double lon2)
-        {
-            return Math.Sqrt(Math.Pow(lat1 - lat2, 2) + Math.Pow(lon1 - lon2, 2));
         }
     }
 }

@@ -48,6 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CliInterface.cs" />
+    <Compile Include="Apis\Postcode\PostcodeApi.cs" />
+    <Compile Include="Apis\Postcode\Responses\PostcodeData.cs" />
+    <Compile Include="Apis\Postcode\PostcodeNotFoundException.cs" />
+    <Compile Include="Apis\Postcode\Responses\PostcodeWrapper.cs" />
     <Compile Include="Apis\Tfl\Responses\Prediction.cs" />
     <Compile Include="Apis\Tfl\Responses\PredictionTiming.cs" />
     <Compile Include="Program.cs" />

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusBoard.ConsoleApp
 {
@@ -13,5 +9,10 @@ namespace BusBoard.ConsoleApp
         public double distance { get; set; }
         public string id { get; set; }
         public string commonName { get; set; }
+
+        public double LatLonDistance(double lat1, double lon1)
+        {
+            return Math.Sqrt(Math.Pow(lat1 - lat, 2) + Math.Pow(lon1 - lon, 2));
+        }
     }
 }
