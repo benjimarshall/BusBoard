@@ -1,10 +1,62 @@
-﻿@model BusBoard.Web.ViewModels.BusInfo
+﻿@using Microsoft.AspNetCore.Html
+@using BusBoard.Api.Tfl
+@using BusBoard.Api.Tfl.Responses
+@using BusBoard.Web.ViewModels
+@model BusBoard.Web.ViewModels.BusInfo
 @{
-  ViewBag.Title = "Bus Information";
+    ViewBag.Title = "Bus Information";
+}
+
+@helper RenderPrediction(Prediction prediction)
+{
+  <tr>
+    <td> @prediction.lineName </td>
+    <td> @prediction.destinationName </td>
+    <td> @prediction.minutesToStation </td>
+  </tr>
+}
+
+@helper RenderStop(string stopName, IEnumerable<Prediction> predictions)
+{
+  <h4>@stopName</h4>
+
+  <table>
+    <tr>
+      <th>Bus Number</th>
+      <th>Destination</th>
+      <th>Due</th>
+    </tr>
+
+    @foreach (var prediction in predictions)
+    {
+      @RenderPrediction(prediction)
+    }
+  </table>
+}
+
+@helper RenderStopTable(IEnumerable<StopPoint> stopPoints)
+{
+  if (!stopPoints.Any())
+  {
+    <h4>No bus stops near this location.</h4>
+  }
+  else
+  {
+    foreach (var stop in Model.StopPoints.Take(2))
+    {
+      @RenderStop(stop.commonName, Model.GetPredictions(stop))
+    }
+  }
 }
 
 <h2>BusInfo</h2>
 
 <div class="row">
-    <p>You entered postcode @Model.PostCode</p>
+  @if (Model.ErrorMessage != "")
+  {
+    <h4>@Model.ErrorMessage</h4>
+  }
+  else {
+    @RenderStopTable(Model.StopPoints)
+  }
 </div>
