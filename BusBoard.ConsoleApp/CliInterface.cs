@@ -41,7 +41,7 @@ namespace BusBoard.ConsoleApp
             return GetPredictionsForLatLon(tflApi, postcodeData.latitude, postcodeData.longitude);
         }
 
-        private static string GetPredictionsForLatLon(TflApi tflApi, double lat, double lon, int count = 2)
+        private static string GetPredictionsForLatLon(TflApi tflApi, double lat, double lon)
         {
             var stopPoints = tflApi.GetStopPointsAtLocation(lat, lon);
 
@@ -66,7 +66,7 @@ namespace BusBoard.ConsoleApp
         {
             return string.Join(
                 "\n",
-                predictions.Take(count).Select(prediction => prediction.PredictionSummary)
+                predictions.Take(5).Select(prediction => prediction.PredictionSummary)
             );
         }
     }
