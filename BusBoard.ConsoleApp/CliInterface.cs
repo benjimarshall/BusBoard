@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BusBoard.Api.Postcode;
+using BusBoard.Api.Tfl;
+using BusBoard.Api.Tfl.Responses;
 
 namespace BusBoard.ConsoleApp
 {

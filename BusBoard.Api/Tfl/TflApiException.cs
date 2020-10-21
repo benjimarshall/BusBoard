@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Tfl
 {
-    class TflApiException : Exception
+    public class TflApiException : Exception
     {
         public TflApiException(string message) : base(message) { }
     }

@@ -1,9 +1,10 @@
 ﻿using System.Net;
+using BusBoard.Api.Postcode.Responses;
 using RestSharp;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Postcode
 {
-    class PostcodeApi
+    public class PostcodeApi
     {
         private const string BaseUrl = "https://api.postcodes.io/";
 

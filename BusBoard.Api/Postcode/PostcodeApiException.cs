@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Postcode
 {
-    class PostcodeApiException : Exception
+    public class PostcodeApiException : Exception
     {
         public PostcodeApiException(string message) : base (message) { }
     }

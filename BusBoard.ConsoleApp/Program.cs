@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net;
+using BusBoard.Api.Postcode;
+using BusBoard.Api.Tfl;
 
 namespace BusBoard.ConsoleApp
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Tfl.Responses
 {
-    class Prediction
+    public class Prediction
     {
         public string id { get; set; }
         public int operationType { get; set; }

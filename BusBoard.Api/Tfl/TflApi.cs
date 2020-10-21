@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using BusBoard.Api.Tfl.Responses;
 using RestSharp;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Tfl
 {
-    class TflApi
+    public class TflApi
     {
         private const string BaseUrl = "https://api.tfl.gov.uk/";
 
