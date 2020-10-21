@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Tfl.Responses
 {
-    class StopPoint
+    public class StopPoint
     {
         public double lat { get; set; }
         public double lon { get; set; }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api.Tfl.Responses
 {
-    class PredictionTiming
+    public class PredictionTiming
     {
         public DateTime countdownServerAdjustment { get; set; }
         public DateTime source { get; set; }

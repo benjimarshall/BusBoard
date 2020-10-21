@@ -1,6 +1,6 @@
-﻿namespace BusBoard.ConsoleApp
+﻿namespace BusBoard.Api.Postcode.Responses
 {
-    class PostcodeData {
+    public class PostcodeData {
         public double longitude { get; set; }
         public double latitude { get; set; }
     }

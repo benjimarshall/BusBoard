@@ -1,4 +1,4 @@
-﻿namespace BusBoard.ConsoleApp
+﻿namespace BusBoard.Api.Postcode.Responses
 {
     class PostcodeWrapper
     {
