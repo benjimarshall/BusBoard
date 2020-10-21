@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace BusBoard.ConsoleApp
 {
@@ -9,8 +10,9 @@ namespace BusBoard.ConsoleApp
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var tflApi = new TflApi();
+            var postcodeApi = new PostcodeApi();
 
-            CliInterface.RunUserCommandLoop(tflApi);
+            CliInterface.RunUserCommandLoop(tflApi, postcodeApi);
         }
     }
 }
