@@ -10,9 +10,9 @@ namespace BusBoard.ConsoleApp
         public string id { get; set; }
         public string commonName { get; set; }
 
-        public double LatLonDistance(double lat1, double lon1)
+        public double LatLonDistance(double latToCompare, double lonToCompare)
         {
-            return Math.Sqrt(Math.Pow(lat1 - lat, 2) + Math.Pow(lon1 - lon, 2));
+            return Math.Sqrt(Math.Pow(latToCompare - lat, 2) + Math.Pow(lonToCompare - lon, 2));
         }
     }
 }

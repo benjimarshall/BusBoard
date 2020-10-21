@@ -56,16 +56,15 @@ namespace BusBoard.ConsoleApp
                                           $"&lat={lat}&lon={lon}"
                                           );
 
-            // Stops roughly within 500m of given point. Due to caching done by TFL, the distances they use are only
-            // accurate to ~100m due to heavy rounding of lat and lon parameters
             var stopPoints = Execute<StopPointsWrapper>(request).stopPoints;
 
-            // Recalculate distances and update stopPoints to have greater precision
+            // Stops roughly within 500m of given point. Due to caching done by TFL, the distances they use are only
+            // accurate to ~100m due to heavy rounding of lat and lon parameters.
+            // Therefore, recalculate distances and update stopPoints to have greater precision
             stopPoints.ForEach(stopPoint =>
                 stopPoint.distance = stopPoint.LatLonDistance(lat, lon)
             );
 
-            // Sort by updated distances
             return stopPoints.OrderBy(stopPoint => stopPoint.distance);
         }
     }

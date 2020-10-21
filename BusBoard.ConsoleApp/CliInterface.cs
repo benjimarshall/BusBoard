@@ -11,7 +11,7 @@ namespace BusBoard.ConsoleApp
         {
             while (true)
             {
-                Console.WriteLine("\n\"[Postcode]\" to list arrivals the two closest stops");
+                Console.WriteLine("\n\"[Postcode]\" to list arrivals at the two closest stops");
                 Console.WriteLine("\"Quit\" to quit");
 
                 Console.WriteLine("Please type an option: ");
