@@ -33,7 +33,7 @@ namespace BusBoard.ConsoleApp
               throw new PostcodeApiException("There was an error retrieving postcode data");
             }
 
-      return response.Data;
+            return response.Data;
         }
 
         public PostcodeData GetPostcodeData(string postcode)
