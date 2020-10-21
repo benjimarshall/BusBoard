@@ -50,7 +50,7 @@
     <Compile Include="CliInterface.cs" />
     <Compile Include="Apis\Postcode\PostcodeApi.cs" />
     <Compile Include="Apis\Postcode\Responses\PostcodeData.cs" />
-    <Compile Include="Apis\Postcode\PostcodeNotFoundException.cs" />
+    <Compile Include="Apis\Postcode\PostcodeApiException.cs" />
     <Compile Include="Apis\Postcode\Responses\PostcodeWrapper.cs" />
     <Compile Include="Apis\Tfl\Responses\Prediction.cs" />
     <Compile Include="Apis\Tfl\Responses\PredictionTiming.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Apis\Tfl\Responses\StopPoint.cs" />
     <Compile Include="Apis\Tfl\Responses\StopPointsWrapper.cs" />
     <Compile Include="Apis\Tfl\TflApi.cs" />
-    <Compile Include="Apis\Tfl\TflStopNotFoundException.cs" />
+    <Compile Include="Apis\Tfl\TflApiException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -26,11 +26,17 @@ namespace BusBoard.ConsoleApp
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                throw new TflStopNotFoundException("Stop was not found");
+                throw new TflApiException("Stop was not found");
             }
             else if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                throw new TflStopNotFoundException("Location requested is too far from London");
+                throw new TflApiException("Location requested is too far from London");
+            }
+            else if (response.Data == null)
+            {
+                // The data didn't deserialise, which could be caused by anything from a bad network
+                // to TFL changing their API in some breaking way.
+                throw new TflApiException("There was an error retrieving data from TfL");
             }
 
             return response.Data;

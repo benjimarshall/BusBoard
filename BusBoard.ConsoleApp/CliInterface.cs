@@ -27,7 +27,7 @@ namespace BusBoard.ConsoleApp
                 {
                     Console.WriteLine(GetPredictionsForPostcode(tflApi, postcodeApi, input));
                 }
-                catch (Exception ex) when (ex is TflStopNotFoundException || ex is PostcodeNotFoundException)
+                catch (Exception ex) when (ex is TflApiException || ex is PostcodeApiException)
                 {
                     Console.WriteLine(ex.Message);
                 }
