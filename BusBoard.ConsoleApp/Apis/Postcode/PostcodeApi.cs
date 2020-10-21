@@ -30,7 +30,7 @@ namespace BusBoard.ConsoleApp
             {
               // The data didn't deserialise, which could be caused by anything from a bad network
               // to Postcode.io changing their API in some breaking way.
-              throw new TflApiException("There was an error retrieving postcode data");
+              throw new PostcodeApiException("There was an error retrieving postcode data");
             }
 
       return response.Data;
