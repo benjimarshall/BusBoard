@@ -7,12 +7,18 @@
     ViewBag.Title = "Bus Information";
 }
 
+@functions {
+
+  static string FormatMinutes(int minutes) => minutes == 1 ? "1 min" : $"{minutes} mins";
+
+}
+
 @helper RenderPrediction(Prediction prediction)
 {
   <tr>
-    <td> @prediction.lineName </td>
+    <th> @prediction.lineName </th>
     <td> @prediction.destinationName </td>
-    <td> @prediction.minutesToStation </td>
+    <td> @FormatMinutes(prediction.minutesToStation) </td>
   </tr>
 }
 
@@ -20,11 +26,11 @@
 {
   <h4>@stopName</h4>
 
-  <table>
+  <table class="table">
     <tr>
-      <th>Bus Number</th>
-      <th>Destination</th>
-      <th>Due</th>
+      <th class="col-xs-2">Bus Number</th>
+      <th class="col-xs-8">Destination</th>
+      <th class="col-xs-2">Due</th>
     </tr>
 
     @foreach (var prediction in predictions)
@@ -32,6 +38,7 @@
       @RenderPrediction(prediction)
     }
   </table>
+  <br/>
 }
 
 @helper RenderStopTable(IEnumerable<StopPoint> stopPoints)
@@ -52,11 +59,14 @@
 <h2>BusInfo</h2>
 
 <div class="row">
-  @if (Model.ErrorMessage != "")
-  {
-    <h4>@Model.ErrorMessage</h4>
-  }
-  else {
-    @RenderStopTable(Model.StopPoints)
-  }
+  <div class="col-md-12">
+    @if (Model.ErrorMessage != "")
+    {
+      <h4>@Model.ErrorMessage</h4>
+    }
+    else
+    {
+      @RenderStopTable(Model.StopPoints)
+    }
+  </div>
 </div>
