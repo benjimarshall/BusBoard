@@ -14,9 +14,9 @@
     }
     else
     {
-      @Html.Partial("_BusStopInfo", Model.BusStop1)
+      @Html.Partial("_BusStopInfo", Model.closestBusStop)
 
-      @Html.Partial("_BusStopInfo", Model.BusStop2)
+      @Html.Partial("_BusStopInfo", Model.secondClosestBusStop)
     }
   </div>
 </div>

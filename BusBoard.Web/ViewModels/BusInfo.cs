@@ -9,8 +9,8 @@ namespace BusBoard.Web.ViewModels
 {
   public class BusInfo
   {
-    public BusStopInfo BusStop1 { get; }
-    public BusStopInfo BusStop2 { get; }
+    public BusStopInfo closestBusStop { get; }
+    public BusStopInfo secondClosestBusStop { get; }
 
     public string ErrorMessage { get; } = "";
 
@@ -29,13 +29,10 @@ namespace BusBoard.Web.ViewModels
         if (!busStops.Any())
         {
           ErrorMessage = "No bus stops near this location.";
-          return;
         }
 
-        BusStop1 = busStops.ElementAtOrDefault(0);
-        BusStop2 = busStops.ElementAtOrDefault(1);
-
-        ErrorMessage = "";
+        closestBusStop = busStops.ElementAtOrDefault(0);
+        secondClosestBusStop = busStops.ElementAtOrDefault(1);
       }
       catch (Exception ex) when (ex is TflApiException || ex is PostcodeApiException)
       {
