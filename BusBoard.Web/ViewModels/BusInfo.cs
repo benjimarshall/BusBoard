@@ -9,7 +9,7 @@ namespace BusBoard.Web.ViewModels
 {
   public class BusInfo
   {
-    public IEnumerable<StopPoint> StopPoints { get; } = new List<StopPoint>();
+    public IEnumerable<BusStopInfo> BusStops { get; } = new List<BusStopInfo>();
     public string ErrorMessage { get; } = "";
 
     private TflApi tflApi = new TflApi();
@@ -20,8 +20,10 @@ namespace BusBoard.Web.ViewModels
       try
       {
         var postcodeData = postcodeApi.GetPostcodeData(postCode);
+        var stopPoints = tflApi.GetStopPointsAtLocation(postcodeData.latitude, postcodeData.longitude);
 
-        StopPoints = tflApi.GetStopPointsAtLocation(postcodeData.latitude, postcodeData.longitude);
+        BusStops = stopPoints.Select(stopPoint => new BusStopInfo(stopPoint));
+
         ErrorMessage = "";
       }
       catch (Exception ex) when (ex is TflApiException || ex is PostcodeApiException)
@@ -29,14 +31,5 @@ namespace BusBoard.Web.ViewModels
         ErrorMessage = (ex.Message);
       }
     }
-
-    public string PostCode { get; set; }
-
-    public IEnumerable<Prediction> GetPredictions(StopPoint stop)
-    {
-      return tflApi.GetSortedArrivals(stop.id);
-    }
-
-    public static string FormatMinutes(int minutes) => minutes == 1 ? "1 min" : $"{minutes} mins";
   }
 }

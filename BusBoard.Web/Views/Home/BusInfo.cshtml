@@ -12,33 +12,15 @@
     {
       <h4>@Model.ErrorMessage</h4>
     }
-    else if (!Model.StopPoints.Any())
+    else if (!Model.BusStops.Any())
     {
       <h4>No bus stops near this location.</h4>
     }
     else
     {
-      foreach (var stop in Model.StopPoints.Take(2))
+      foreach (var stop in Model.BusStops.Take(2))
       {
-        <h4>@stop.commonName</h4>
-
-        <table class="table">
-          <tr>
-            <th class="col-xs-2">Bus Number</th>
-            <th class="col-xs-8">Destination</th>
-            <th class="col-xs-2">Due</th>
-          </tr>
-
-          @foreach (var prediction in Model.GetPredictions(stop))
-          {
-            <tr>
-              <th> @prediction.lineName </th>
-              <td> @prediction.destinationName </td>
-              <td> @BusInfo.FormatMinutes(prediction.minutesToStation) </td>
-            </tr>
-          }
-        </table>
-        <br/>
+        @Html.Partial("_BusStopInfo", stop)
       }
     }
   </div>

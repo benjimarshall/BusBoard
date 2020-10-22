@@ -167,6 +167,7 @@
     <Compile Include="Models\PostcodeSelection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BusInfo.cs" />
+    <Compile Include="ViewModels\BusStopInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -207,6 +208,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\BusInfo.cshtml" />
+    <Content Include="Views\Shared\_BusStopInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
