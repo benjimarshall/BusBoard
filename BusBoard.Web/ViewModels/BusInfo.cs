@@ -21,11 +21,6 @@ namespace BusBoard.Web.ViewModels
       {
         var postcodeData = postcodeApi.GetPostcodeData(postCode);
 
-        if (postcodeData == null)
-        {
-          return;
-        }
-
         StopPoints = tflApi.GetStopPointsAtLocation(postcodeData.latitude, postcodeData.longitude);
         ErrorMessage = "";
       }

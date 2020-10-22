@@ -39,9 +39,12 @@ namespace BusBoard.Api.Postcode
 
         public PostcodeData GetPostcodeData(string postcode)
         {
-            var request = new RestRequest($"postcodes/{postcode}");
+            if (string.IsNullOrEmpty(postcode))
+            {
+                throw new PostcodeApiException("Postcode was not found");
+            }
 
-            return Execute<PostcodeWrapper>(request).result;
+            return Execute<PostcodeWrapper>(new RestRequest($"postcodes/{postcode}")).result;
         }
     }
 }
