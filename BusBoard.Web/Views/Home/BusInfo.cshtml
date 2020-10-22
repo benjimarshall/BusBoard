@@ -1,61 +1,45 @@
-﻿@using Microsoft.AspNetCore.Html
-@using BusBoard.Api.Tfl
-@using BusBoard.Api.Tfl.Responses
-@using BusBoard.Web.ViewModels
+﻿@using BusBoard.Web.ViewModels
 @model BusBoard.Web.ViewModels.BusInfo
 @{
     ViewBag.Title = "Bus Information";
-}
-
-@helper RenderStop(string stopName, IEnumerable<Prediction> predictions)
-{
-  <h4>@stopName</h4>
-
-  <table class="table">
-    <tr>
-      <th class="col-xs-2">Bus Number</th>
-      <th class="col-xs-8">Destination</th>
-      <th class="col-xs-2">Due</th>
-    </tr>
-
-    @foreach (var prediction in predictions)
-    {
-      <tr>
-        <th> @prediction.lineName </th>
-        <td> @prediction.destinationName </td>
-        <td> @BusInfo.FormatMinutes(prediction.minutesToStation) </td>
-      </tr>
-    }
-  </table>
-  <br/>
-}
-
-@helper RenderStopTable(IEnumerable<StopPoint> stopPoints)
-{
-  if (!stopPoints.Any())
-  {
-    <h4>No bus stops near this location.</h4>
-  }
-  else
-  {
-    foreach (var stop in Model.StopPoints.Take(2))
-    {
-      @RenderStop(stop.commonName, Model.GetPredictions(stop))
-    }
-  }
 }
 
 <h2>BusInfo</h2>
 
 <div class="row">
   <div class="col-md-12">
-    @if (Model.ErrorMessage != "")
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
       <h4>@Model.ErrorMessage</h4>
     }
+    else if (!Model.StopPoints.Any())
+    {
+      <h4>No bus stops near this location.</h4>
+    }
     else
     {
-      @RenderStopTable(Model.StopPoints)
+      foreach (var stop in Model.StopPoints.Take(2))
+      {
+        <h4>@stop.commonName</h4>
+
+        <table class="table">
+          <tr>
+            <th class="col-xs-2">Bus Number</th>
+            <th class="col-xs-8">Destination</th>
+            <th class="col-xs-2">Due</th>
+          </tr>
+
+          @foreach (var prediction in Model.GetPredictions(stop))
+          {
+            <tr>
+              <th> @prediction.lineName </th>
+              <td> @prediction.destinationName </td>
+              <td> @BusInfo.FormatMinutes(prediction.minutesToStation) </td>
+            </tr>
+          }
+        </table>
+        <br/>
+      }
     }
   </div>
 </div>
