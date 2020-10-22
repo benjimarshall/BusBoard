@@ -1,10 +1,22 @@
-﻿@model BusBoard.Web.ViewModels.BusInfo
+﻿@using BusBoard.Web.ViewModels
+@model BusBoard.Web.ViewModels.BusInfo
 @{
-  ViewBag.Title = "Bus Information";
+    ViewBag.Title = "Bus Information";
 }
 
 <h2>BusInfo</h2>
 
 <div class="row">
-    <p>You entered postcode @Model.PostCode</p>
+  <div class="col-md-12">
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+      <h4>@Model.ErrorMessage</h4>
+    }
+    else
+    {
+      @Html.Partial("_BusStopInfo", Model.closestBusStop)
+
+      @Html.Partial("_BusStopInfo", Model.secondClosestBusStop)
+    }
+  </div>
 </div>
