@@ -1,20 +1,23 @@
 ﻿@using BusBoard.Web.ViewModels
 @model BusBoard.Web.ViewModels.BusStopInfo
 
-<table class="table">
-  <tr>
-    <th class="col-xs-2">Bus Number</th>
-    <th class="col-xs-8">Destination</th>
-    <th class="col-xs-2">Due</th>
-  </tr>
-
-  @foreach (var prediction in Model.Predictions)
-  {
+@if (Model != null)
+{
+  <table class="table">
     <tr>
-      <th> @prediction.lineName </th>
-      <td> @prediction.destinationName </td>
-      <td> @BusStopInfo.FormatMinutes(prediction.minutesToStation) </td>
+      <th class="col-xs-2">Bus Number</th>
+      <th class="col-xs-8">Destination</th>
+      <th class="col-xs-2">Due</th>
     </tr>
-  }
-</table>
-<br />
+
+    @foreach (var prediction in Model.Predictions)
+    {
+      <tr>
+        <th> @prediction.lineName </th>
+        <td> @prediction.destinationName </td>
+        <td> @BusStopInfo.FormatMinutes(prediction.minutesToStation) </td>
+      </tr>
+    }
+  </table>
+  <br/>
+}

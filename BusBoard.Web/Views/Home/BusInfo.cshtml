@@ -12,16 +12,11 @@
     {
       <h4>@Model.ErrorMessage</h4>
     }
-    else if (!Model.BusStops.Any())
-    {
-      <h4>No bus stops near this location.</h4>
-    }
     else
     {
-      foreach (var stop in Model.BusStops.Take(2))
-      {
-        @Html.Partial("_BusStopInfo", stop)
-      }
+      @Html.Partial("_BusStopInfo", Model.BusStop1)
+
+      @Html.Partial("_BusStopInfo", Model.BusStop2)
     }
   </div>
 </div>

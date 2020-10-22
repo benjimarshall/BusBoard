@@ -9,7 +9,9 @@ namespace BusBoard.Web.ViewModels
 {
   public class BusInfo
   {
-    public IEnumerable<BusStopInfo> BusStops { get; } = new List<BusStopInfo>();
+    public BusStopInfo BusStop1 { get; }
+    public BusStopInfo BusStop2 { get; }
+
     public string ErrorMessage { get; } = "";
 
     private TflApi tflApi = new TflApi();
@@ -22,7 +24,16 @@ namespace BusBoard.Web.ViewModels
         var postcodeData = postcodeApi.GetPostcodeData(postCode);
         var stopPoints = tflApi.GetStopPointsAtLocation(postcodeData.latitude, postcodeData.longitude);
 
-        BusStops = stopPoints.Select(stopPoint => new BusStopInfo(stopPoint));
+        var busStops = stopPoints.Select(stopPoint => new BusStopInfo(stopPoint));
+
+        if (!busStops.Any())
+        {
+          ErrorMessage = "No bus stops near this location.";
+          return;
+        }
+
+        BusStop1 = busStops.ElementAtOrDefault(0);
+        BusStop2 = busStops.ElementAtOrDefault(1);
 
         ErrorMessage = "";
       }
