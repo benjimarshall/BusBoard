@@ -36,5 +36,7 @@ namespace BusBoard.Web.ViewModels
     {
       return tflApi.GetSortedArrivals(stop.id);
     }
+
+    public static string FormatMinutes(int minutes) => minutes == 1 ? "1 min" : $"{minutes} mins";
   }
 }

@@ -7,21 +7,6 @@
     ViewBag.Title = "Bus Information";
 }
 
-@functions {
-
-  static string FormatMinutes(int minutes) => minutes == 1 ? "1 min" : $"{minutes} mins";
-
-}
-
-@helper RenderPrediction(Prediction prediction)
-{
-  <tr>
-    <th> @prediction.lineName </th>
-    <td> @prediction.destinationName </td>
-    <td> @FormatMinutes(prediction.minutesToStation) </td>
-  </tr>
-}
-
 @helper RenderStop(string stopName, IEnumerable<Prediction> predictions)
 {
   <h4>@stopName</h4>
@@ -35,7 +20,11 @@
 
     @foreach (var prediction in predictions)
     {
-      @RenderPrediction(prediction)
+      <tr>
+        <th> @prediction.lineName </th>
+        <td> @prediction.destinationName </td>
+        <td> @BusInfo.FormatMinutes(prediction.minutesToStation) </td>
+      </tr>
     }
   </table>
   <br/>
